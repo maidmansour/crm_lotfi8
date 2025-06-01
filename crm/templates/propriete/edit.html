@@ -1,0 +1,579 @@
+{% extends 'index.html' %}
+{% block content %}
+<form class="mb-9" method="POST" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row">
+    <div class="d-flex justify-content-between">
+        <h4>Bien Immobilier</h4>
+        
+    </div>
+  </div>
+
+
+
+
+
+  {% if propriete_form.errors %}
+    {% for field in propriete_form %}
+        {% for error in field.errors %}
+            <p> {{ error }} {{ field }} </p>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title mb-0">Description</h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">{{ propriete_form.exclusive }} Bien Exculisif </div>
+      
+    </div>
+    <div class="row mt-4">
+      <div class="col-3 mt-3">{{ propriete_form.libre }} Libre  </div>
+      <div class="col-3">Date {{ propriete_form.libre_date }}</div>
+    </div>
+    <div class="row mt-3"> 
+      <div class="col-3 mt-3">{{ propriete_form.occuped }} Occupee  </div>
+      <div class="col-3">Date {{ propriete_form.occuped_date }}</div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-6">Titre du Bien {{ propriete_form.title }}</div>
+      <div class="col-6">Description {{ propriete_form.description }}</div>
+    </div>
+    <div class="form-group">
+      <label for="images">Images</label>
+      <input type="file" name="images[]" id="images" multiple class="form-control">
+    </div>
+    <div class=" mt-3 d-flex justify-content-between">
+      <div class="col-9"></div>
+      <div class="">
+      <span><button  class="btn btn-sm btn-success" type="submit">Enregistrer</a></span>
+      </div>
+  </div>
+    <div class="form-group">
+      <div id="image_preview" style="width:100%;">
+        {% for image in images %}
+        <div class='img-div' id='img-div'><img src="{{ image.pic.url }}" class='img-responsive image img-thumbnail' title='{{ image.pic.name }}'><div class='middle'><button id='action-icon-btn' value='img-div' class='btn btn-danger delete-btn' role="{{ image.id }}"><i class='fa fa-trash'></i></button></div></div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Coordonnées Générale</h5>
+        </div>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col">
+              <label for="proprietaire" class="mb-3"> Référence du Bien </label>
+              {{ propriete_form.reference }}
+              <div class="text-danger">
+                {{ propriete_form.reference.errors }}
+              </div>
+            </div>
+            <div class="col">
+              <label for="proprietaire" class="mb-3"> Propriétaire </label>
+                {{ propriete_form.proprietaire }}
+                <div class="text-danger">
+                  {{ propriete_form.proprietaire.errors }}
+                </div>
+            </div>
+           
+            <div class="col">
+              <label for="proprietaire" class="mb-3"> Secteur </label>
+              {{ propriete_form.secteur }}
+              <div class="text-danger">
+                {{ propriete_form.secteur.errors }}
+              </div>
+            </div>
+            <div class="col">
+              <label for="proprietaire" class="mb-3"> Quartier </label>
+              {{ propriete_form.quartier }}
+              <div class="text-danger">
+                {{ propriete_form.quartier.errors }}
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            
+            <div class="col-4">Agent : {{ propriete_form.agent }}</div>
+            <div class="col-4">Type Opération : {{ propriete_form.type_operation }}</div>
+            
+          </div>
+
+          <div class="row">
+            <div class="col-3">Prix de Vente : {{ propriete_form.price }} </div>
+            <div class="col-3" id="div-loyer">Loyer : {{ propriete_form.loyer }} </div>
+            <div class="col-3" id="div-avance">Avance : {{ propriete_form.avance }} </div>
+            <div class="col-3" id="div-caution">Caution : {{ propriete_form.caution }} </div>
+            
+          </div>
+
+          <div class="row mt-2">
+            <div class="col"><strong>Origine du Bien</strong></div>
+            <div class="col">{{ propriete_form.origine_prospection }} Prospection</div>
+            <div class="col">{{ propriete_form.origine_interne }} Interne</div>
+            <div class="col">{{ propriete_form.origine_intermidiaire }} Intérmidiaire</div>
+            <div class="col">{{ propriete_form.intermidiaire }}</div>
+          </div>
+
+         </div>
+        
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Le Bien Général</h5>
+        </div>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-2"><strong>Genre du Bien</strong></div>
+            <div class="col-2">{{ propriete_form.genre_marocain }} Marocain</div>
+            <div class="col-2">{{ propriete_form.genre_contemporain }} Contemporain</div>
+            <div class="col-2">{{ propriete_form.genre_moderne }} Moderne</div>
+            <div class="col-2">{{ propriete_form.genre_traditionnel }} Traditionnel</div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-2"><strong>L'ensemble</strong></div>
+            <div class="col-2">{{ propriete_form.residentiel }} Résidentiel</div>
+            <div class="col-2">{{ propriete_form.individuel }} Individuel</div>
+            <div class="col-2">{{ propriete_form.immeuble }} Immeuble</div>
+            <div class="col-2">{{ propriete_form.habitation }} Habitaion</div>
+            <div class="col-2">{{ propriete_form.commercial }} Commercial</div>
+            <div class="col-2"></div>
+            <div class="col-2">{{ propriete_form.mixte }} Mixte</div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-2"><strong>Catégorie</strong></div>
+            <div class="col-2">{{ propriete_form.recent }} Récent</div>
+            <div class="col-2">{{ propriete_form.ancien }} Ancien</div>
+            <div class="col-2">{{ propriete_form.neuf }} Neuf</div>
+            <div class="col-2">{{ propriete_form.a_renover }} A Rénover</div>
+            <div class="col-2">{{ propriete_form.semi_fini }} Semi Fini</div>
+            <div class="col-2"></div>
+            <div class="col-2">{{ propriete_form.economique }} Economique</div>
+            <div class="col-2">{{ propriete_form.haut_standing }} Haut Standing</div>
+            <div class="col-2">{{ propriete_form.my_standing }} My Standing</div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-2"><strong>Etat</strong></div>
+            <div class="col-2">{{ propriete_form.vide }} Vide</div>
+            <div class="col-2">{{ propriete_form.semi_meuble }} Semi Meublé</div>
+            <div class="col-2">{{ propriete_form.meuble }} Meublé</div>
+            <div class="col-2">{{ propriete_form.equipee }} Equipé</div>
+            <div class="col-2">{{ propriete_form.semi_equipee }} Semi Equipé</div>
+           
+
+          </div>
+          <div class="row mt-4">
+            <div class="col-2"><strong>Type de Bien</strong></div>
+            <div class="col-3">Nature : {{ propriete_form.type_bien }}</div>
+            <div class="col-3">Sous Type : {{ propriete_form.sous_type_bien }}</div>
+            <div class="col-2 mt-4">{{ propriete_form.collective }} Collective</div>
+            <div class="col-2 mt-4">{{ propriete_form.titree }} Titré</div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-2"><strong>Parking</strong></div>
+            <div class="col-3">Collectif : {{ propriete_form.parking_collectif }}</div>
+            <div class="col-3">Privé: {{ propriete_form.parking_prive }}</div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-2"><strong>Adresse</strong></div>
+            <div class="col-6">Résidence : {{ propriete_form.residence }}</div>
+            <div class="col-4">Block : {{ propriete_form.block }}</div>
+            <div class="col-2"><strong></strong></div>
+            <div class="col-3">N°Apprt : {{ propriete_form.num_appartment }}</div>
+            <div class="col-6">Adresse : <textarea id="address"  rows="2" class="mb-2 form-control form-control-sm"> </textarea></div>
+          </div>
+
+        </div>
+      </div>
+   
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Le Bien Intérieur</h5>
+        </div>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-3"><strong>Superficie</strong></div>
+            <div class="col-2">Habitable : {{ propriete_form.superficie_habitable }}</div>
+            <div class="col-2">Terrain : {{ propriete_form.superficie_terrain }}</div>
+            <div class="col-2"> Construite {{ propriete_form.superficie_construite }}</div>
+            <div class="col-2">Sol : {{ propriete_form.superficie_sol }}</div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3"><strong>Superficie</strong></div>
+            
+            <div class="col-2">Terrasse : {{ propriete_form.superficie_terrasse }}</div>
+            <div class="col-2">Jardin : {{ propriete_form.superficie_jardin }} </div>
+            <div class="col-2">Coure : {{ propriete_form.superficie_coure }} </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3"><strong>Nombre de Pièces</strong></div>
+            <div class="col-3">Total Chambres : {{ propriete_form.global_bedrooms }}</div>
+            <div class="col-3">Suites : {{ propriete_form.suite_number }}</div>
+            <div class="col-3"> Masters {{ propriete_form.master_number }}</div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3"><strong>Nombre de Salon</strong></div>
+            <div class="col-2">Marocain : {{ propriete_form.nbre_salon_marocain }}</div>
+            <div class="col-2">European : {{ propriete_form.nbre_salon_european }}</div>
+            <div class="col-2"> Cheminé {{ propriete_form.nbre_salon_cheminie }}</div>
+            <div class="col-2"> Séjour {{ propriete_form.nbre_salon_sejour }}</div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3"><strong>Nombre de Cuisines</strong></div>
+            <div class="col-3">Indépendante : {{ propriete_form.nbre_cuisine_independante }}</div>
+            <div class="col-3">Kitchinette : {{ propriete_form.nbre_cuisine_kitchinette }}</div>
+            <div class="col-3"> Américaine {{ propriete_form.nbre_cuisine_americaine }}</div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3"><strong>Nature Cuisine</strong></div>
+            <div class="col-2">{{ propriete_form.cuisine_equipee }} Equipée</div>
+            <div class="col-2">{{ propriete_form.cuisine_amenagee }} Aménagée</div>
+            <div class="col-2"> {{ propriete_form.cuisine_lesdeux }} Les Deux</div>
+            <div class="col-2"> {{ propriete_form.cuisine_buanderie }} Avec Buanderie</div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-3"><strong>Nombre SDB </strong></div>
+            <div class="col-2">Italienne : {{ propriete_form.bathrooms_italienne }}</div>
+            <div class="col-2">Baignoire : {{ propriete_form.bathrooms_baignoire }}</div>
+            <div class="col-2"> SDE {{ propriete_form.bathrooms_sde }}</div>
+            <div class="col-2"> Hammam Beldi {{ propriete_form.bathrooms_hammam_beldi }}</div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3"><strong>Nombre </strong></div>
+            <div class="col-2">Terrasse : {{ propriete_form.nbre_terrasse }}</div>
+            <div class="col-2">Balcon : {{ propriete_form.nbre_balcon }}</div>
+            <div class="col-2"> Coure {{ propriete_form.nbre_coure }}</div>
+            <div class="col-2"> C-anglaise {{ propriete_form.nbre_c_anglaise }}</div>
+            <div class="col-3"> </div>
+            <div class="col-2"> Buanderie {{ propriete_form.nbre_buanderie }}</div>
+            <div class="col-2"> Terasse sur le toit {{ propriete_form.nbre_terrasse_toit }}</div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-3"><strong>Chauffe-Eau </strong></div>
+            <div class="col-2">{{ propriete_form.chauffeau_electrique }} Electrique</div>
+            <div class="col-2">{{ propriete_form.chauffeau_gaz }} Gaz</div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-3"><strong>Climatisation </strong></div>
+            <div class="col-2">{{ propriete_form.climatisation_centrale }} Centrale</div>
+            <div class="col-2">{{ propriete_form.climatisation_revirsible }} Réversible</div>
+            <div class="col-2">{{ propriete_form.climatisation_mural }} Murale</div>
+          </div>
+
+
+        </div>
+      </div>
+       
+
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Le Bien Extérieur</h5>
+        </div>
+        <div class="card-body">
+
+
+          <div class="row">
+            <div class="col-2"><strong>Privé</strong></div>
+            <div class="col-2">{{ propriete_form.piscine_privee }} Piscine</div>
+            <div class="col-2">{{ propriete_form.piscine_chauffee_privee }} Piscine Chauffée</div>
+            <div class="col-2"> {{ propriete_form.jacozzi_privee }} Jacuzzi</div>
+            <div class="col-2"> {{ propriete_form.jardin_privee }} Jardin</div>
+            <div class="col-2"> {{ propriete_form.hammam_beldi_privee }} Hammam Beldi</div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-2"><strong>Collective</strong></div>
+            <div class="col-2">{{ propriete_form.piscine_collective }} Piscine</div>
+            <div class="col-2">{{ propriete_form.piscine_chauffee_collective }} Piscine Chauffée</div>
+            <div class="col-2"> {{ propriete_form.jacozzi_collective }} Jacuzzi</div>
+            <div class="col-2"> {{ propriete_form.jardin_collective }} Jardin</div>
+            <div class="col-2"> {{ propriete_form.hammam_beldi_collective }} Hammam Beldi</div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-2"><strong>Etage</strong></div>
+            <div class="col-2">{{ propriete_form.ascenseur }} Ascenseur</div>
+            <div class="col-2">{{ propriete_form.escalier_secour }} Escalier Secour</div>
+            <div class="col-2"> {{ propriete_form.security }} Sécurité</div>
+            <div class="col-2"> {{ propriete_form.syndic }} Syndic</div>
+            <div class="col-2"> {{ propriete_form.puit }} Puit</div>
+            <div class="col-2"></div>
+            <div class="col-2"> {{ propriete_form.goute_a_goute }} Goute à goute</div>
+            <div class="col-2"> {{ propriete_form.local_technique }} Local Technique</div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+
+      
+
+      
+
+</form>
+
+{% endblock content %}
+
+
+
+{% block script %}
+
+<script>
+  $(document).ready(function() {
+  var fileArr = [];
+   $("#images").change(function(){
+      // check if fileArr length is greater than 0
+       if (fileArr.length > 0) fileArr = [];
+     
+        $('#image_preview').html("");
+        var total_file = document.getElementById("images").files;
+        if (!total_file.length) return;
+        for (var i = 0; i < total_file.length; i++) {
+          if (total_file[i].size > 1048576) {
+            return false;
+          } else {
+            fileArr.push(total_file[i]);
+            $('#image_preview').append("<div class='img-div' id='img-div"+i+"'><img src='"+URL.createObjectURL(event.target.files[i])+"' class='img-responsive image img-thumbnail' title='"+total_file[i].name+"'><div class='middle'><button id='action-icon' value='img-div"+i+"' class='btn btn-danger' role='"+total_file[i].name+"'><i class='fa fa-trash'></i></button></div></div>");
+          }
+        }
+   });
+  
+  $('body').on('click', '#action-icon', function(evt){
+      var divName = this.value;
+      var fileName = $(this).attr('role');
+      $(`#${divName}`).remove();
+    
+      for (var i = 0; i < fileArr.length; i++) {
+        if (fileArr[i].name === fileName) {
+          fileArr.splice(i, 1);
+        }
+      }
+    document.getElementById('images').files = FileListItem(fileArr);
+      evt.preventDefault();
+  });
+  
+   function FileListItem(file) {
+            file = [].slice.call(Array.isArray(file) ? file : arguments)
+            for (var c, b = c = file.length, d = !0; b-- && d;) d = file[b] instanceof File
+            if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
+            for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(file[c])
+            return b.files
+        }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Écouter tous les boutons de suppression
+    document.querySelectorAll('.delete-btn').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Empêcher le comportement par défaut du bouton
+
+            const imageId = button.getAttribute("role"); // Obtenir l'ID de l'image depuis le bouton
+            if (imageId != "")  {
+              const url = `/proprietes/delete_image/${imageId}/`; // Construire l'URL de suppression
+
+              // Confirmer la suppression
+              if (confirm("Êtes-vous sûr de vouloir supprimer cette image ?")) {
+                  fetch(url, {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json',
+                          'X-CSRFToken': '{{ csrf_token }}' // Assurez-vous d'inclure le token CSRF
+                      }
+                  })
+                  .then(response => {
+                      if (response.ok) {
+                          return response.json(); // Convertir la réponse en JSON
+                      }
+                      throw new Error('Erreur de suppression');
+                  })
+                  .then(data => {
+                      if (data.success) {
+                          // Supprimer l'élément de la page
+                          elem = button.parentNode.parentNode;
+                          elem.remove(); // Ou autre logique pour retirer l'élément
+                          
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Erreur:', error);
+                      
+                  });
+                }
+            } else {
+              elem = button.parentNode.parentNode;
+              elem.remove(); // Ou autre logique pour retirer l'élément
+            }
+        });
+    });
+});
+
+
+
+</script>
+<script>
+  div_loyer = document.getElementById("div-loyer");
+  div_avance = document.getElementById("div-avance");
+  div_caution = document.getElementById("div-caution");
+  type_operation = document.getElementById("id_type_operation");
+  loyer = document.getElementById("id_loyer");
+  caution = document.getElementById("id_caution");
+  avance = document.getElementById("id_avance");
+  id_residence = document.getElementById("id_residence");
+  
+
+  div_loyer.style.visibility='hidden';
+  div_avance.style.visibility='hidden';
+  div_caution.style.visibility='hidden';
+
+  if (type_operation.value ==  "FOND DE COMMERCE" || type_operation.value == "DROIT D'ENTREE"){
+    div_avance.style.visibility='hidden';
+    div_caution.style.visibility='hidden';
+    div_loyer.style.visibility='visible';
+  }
+
+  if (type_operation.value ==  "LOCATION LONGUE DUREE" || type_operation.value == "LOCATION COURTE DUREE"){
+    div_loyer.style.visibility='hidden';
+    div_avance.style.visibility='visible';
+    div_caution.style.visibility='visible';
+  }
+
+  type_operation.addEventListener("change", function() {
+    if (type_operation.value ==  "FOND DE COMMERCE" || type_operation.value == "DROIT D'ENTREE"){
+      div_avance.style.visibility='hidden';
+      div_caution.style.visibility='hidden';
+      div_loyer.style.visibility='visible';
+    }
+    if (type_operation.value ==  "LOCATION LONGUE DUREE" || type_operation.value == "LOCATION COURTE DUREE"){
+      div_loyer.style.visibility='hidden';
+      div_avance.style.visibility='visible';
+      div_caution.style.visibility='visible';
+    }
+    if (type_operation.value ==  "VENTE"){
+      div_loyer.style.visibility='hidden';
+      div_avance.style.visibility='hidden';
+      div_caution.style.visibility='hidden';
+      loyer.value = 0;
+      avance.value = 0;
+      caution.value = "";
+    }
+
+  });
+
+</script>
+<script>
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      var cookies = document.cookie.split(";");
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  var csrftoken = getCookie("csrftoken");
+secteur = document.getElementById("id_secteur");
+
+secteur.addEventListener("change", function() {
+  loadQuartiers(secteur.value).then();
+  });
+  id_residence.addEventListener("change", function() {
+  loadAddress(id_residence.value).then();
+  });
+
+
+async function loadQuartiers(secteur){
+  try{
+    let response = await fetch("/proprietes/quartiers/get", {
+      method: "POST",
+      headers: { "X-CSRFToken": csrftoken },
+      body: JSON.stringify({
+        secteur: secteur,
+      }),
+    });
+
+    let data = await response.json();
+
+    quartier_list = data.quartier_list
+
+    let quartier = document.getElementById("id_quartier");
+   
+
+    quartier.innerHTML = ""
+
+    for (i=0; i<quartier_list.length; i++) {
+      let option = document.createElement("option");
+      option.value = quartier_list[i].id;
+      option.text = quartier_list[i].title;
+      quartier.add(option);
+    }
+
+    
+    
+   
+  }catch(e) {
+
+    console.log(e);
+  }
+  
+}
+
+
+async function loadAddress(residence){
+  try{
+    let response = await fetch("/proprietes/residence/address/get", {
+      method: "POST",
+      headers: { "X-CSRFToken": csrftoken },
+      body: JSON.stringify({
+        residence: residence,
+      }),
+    });
+
+    let data = await response.json();
+
+    my_address = data.address
+
+    let address = document.getElementById("address");
+   
+    address.value = my_address;
+    
+    
+   
+  }catch(e) {
+
+    console.log(e);
+  }
+  
+}
+</script>
+{% endblock script %}

@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="row mt-5">
+    <div class="d-flex justify-content-between">
+        <h4>Liste des Propriétaires</h4>
+        <span><a class="btn btn-sm btn-success" href="{% url 'proprietaire-edit' %}">Nouveau Propriétaire</a></span>
+    </div>
+</div>
+
+<div class="card-body mt-4">
+  <table id="list-proprietaires" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Réference</th>
+            <th>Type Propriétaire</th>
+            <th>Nom/Raison Sociale</th>
+            <th>Téléphone</th>
+            <th>Nom Responsable</th>
+            <th>Tel Responsable</th>
+            
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for proprietaire in list_proprieataires %}
+        
+        <tr>
+            <td>{{ proprietaire.reference }}</td>
+            <td>{{ proprietaire.type_proprietaire }}</td>
+            <td>{{ proprietaire.nom_raison_sociale }}</td>
+            <td>{{ proprietaire.phonenumber }}</td>
+            <td>{{ proprietaire.nom_responsable }}</td>
+            <td>{{ proprietaire.tel_responsable }}</td>
+           
+            <td>
+               <div class="d-flex justify-content-around">
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href="{% url 'proprietaire-edit' proprietaire.pk %}"><i class="align-middle me-2" data-feather="edit"></i> </a></span>
+                </div>
+                    
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href="{% url 'proprietaire-proprietes' proprietaire.pk %}"><i class="align-middle me-2" data-feather="external-link"></i> </a></span>
+                </div>
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+       
+    
+    </tbody>
+    
+</table>
+  </div>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+  new DataTable('#list-proprietaires');
+</script>
+{% endblock script %}

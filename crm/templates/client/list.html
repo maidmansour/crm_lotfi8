@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="row mt-5">
+    <div class="d-flex justify-content-between">
+        <h4>Liste des Clients</h4>
+        <span><a class="btn btn-sm btn-success" href="{% url 'client-edit' %}">Nouveau Client</a></span>
+    </div>
+</div>
+
+<div class="card-body mt-4">
+  <table id="list-clients" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Type Client</th>
+            <th>Réference</th>
+            <th>Nom/Raison Sociale</th>
+            <th>Téléphone</th>
+            <th>Nom Responsable</th>
+            <th>Tel Responsable</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for client in list_clients %}
+        
+        <tr>
+            <td>{{ client.type_client }}</td>
+            <td>{{ client.reference }}</td>
+            <td>{{ client.nom_raison_sociale }}</td>
+            <td>{{ client.phonenumber }}</td>
+            <td>{{ client.nom_responsable }}</td>
+            <td>{{ client.tel_responsable }}</td>
+            <td>
+               <div class="d-flex justify-content-around">
+                    <span><a class="btn btn-sm btn-info" href="{% url 'client-edit' client.pk %}">Modifier</a></span>
+                    <span><a class="btn btn-sm btn-danger" href="">Supprimer</a></span>
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+       
+    
+    </tbody>
+    
+</table>
+  </div>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+  new DataTable('#list-clients');
+</script>
+{% endblock script %}

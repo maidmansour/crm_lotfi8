@@ -1,0 +1,126 @@
+{% extends 'index.html' %}
+{% load text_filters %}
+
+{% block content %}
+
+
+<div class="row">
+    <h3></h3>
+    <form class="mb-9" method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row mt-5">
+            <div class="d-flex justify-content-between">
+                <h4>Liste des Biens</h4>
+                <span><a class="btn btn-sm btn-success" href="{% url 'propriete-edit' %}">Nouveau Bien</a></span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Recherche</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">Référence : {{ recherche_form.reference }}</div>
+                    <div class="col">Type Operation : {{ recherche_form.type_operation }}</div>
+                    <div class="col">Nature : {{ recherche_form.type_bien }}</div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col">Propriétaire : {{ recherche_form.proprietaire }}</div>
+                    <div class="col">Intermidiaire : {{ recherche_form.intermidiaire }}</div>
+                    <div class="col">Agent : {{ recherche_form.agent }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Secteur : {{ recherche_form.secteur }}</div>
+                    <div class="col-4">Résidence : {{ recherche_form.residence }}</div>
+                    <div class="col-2">Chambre Min : {{ recherche_form.bedrooms_min }}</div>
+                    <div class="col-2"> Chambre Max : {{ recherche_form.bedrooms_max }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-3">Prix Min : {{ recherche_form.price_min }}</div>
+                    <div class="col-3">Prix Max : {{ recherche_form.price_max }}</div>
+                    <div class="col-3 mt-4">{{ recherche_form.exclusive }} Bien Exclusive</div>
+                </div>
+               
+            </div> 
+            <div class=" mb-4  d-flex justify-content-between">
+                <div class="col-9"></div>
+                <div class="">
+                <span><button  class="btn btn-sm btn-success" type="submit">Rechercher</a></span>
+                </div>
+            </div> 
+        </div>
+        
+    </form>
+</div>
+<div class="carousel">
+    {% for propriete in list_proprietes %}
+    <div class="carousel-item"><a href="{% url 'propriete-edit' propriete.pk %}"><img src="{{ propriete.images.first.pic.url }}" alt="Image 3" width="250px" height="250px"></a>
+        <ul class="description">
+        <li >Référence : {{propriete.reference }}</li>
+        <li >Opération : {{ propriete.type_operation }}</li>
+        <li >Prix : {{ propriete.price }} MAD</li>
+        <li >Toatl Chambre : {{ propriete.global_bedrooms }} </li>
+        <li >Toatl Salle de Bain : {{ propriete.bathrooms_italienne|add:propriete.bathrooms_baignoire|add:propriete.bathrooms_sde|add:propriete.bathrooms_hammam_beldi}}</li>
+        <li >Toatl Salon : {{ propriete.nbre_salon_marocain|add:propriete.nbre_salon_european|add:propriete.nbre_salon_cheminie|add:propriete.nbre_salon_sejour}}</li>
+        <li >Piscine : {% if propriete.piscine_privee or propriete.piscine_chauffee_privee %} Privé  {% elif propriete.piscine_collective or  propriete.piscine_chauffee_collective %} Collective {% else %} Aucun {% endif %} </li>
+        <li >Parcking : {% if propriete.parking_prive %} Privé  {% elif propriete.parking_collectif %} Collectif {% else %} Aucun {% endif %} </li>
+        
+        <li style="max-width: 250px; word-wrap: break-word;">Adresse :  {{ propriete.residence }}  Block: {{ propriete.block }} N°APPT: {{ propriete.num_appartment }} {{ propriete.residence.address }} 
+    </li>
+        <li >Propriétaire : {{ propriete.proprietaire.nom_raison_sociale }}</li>
+        <li >Tél Propriétaire : {{ propriete.proprietaire.phonenumber }}</li>
+        <li >Gardien : {{ propriete.proprietaire.nom_gardien }}</li>
+        <li >Tél Gardien : {{ propriete.proprietaire.tel_gardien }}</li>
+        {% if propriete.agent %}
+        <li >Agent : {{ propriete.agent }}</li>
+        <li >Tél Agent : {{ propriete.agent.phonenumber }}</li>
+        {% endif %}
+        {% if propriete.intermidiare %}
+        <li >Intermidiaire : {{ propriete.intermidiare }}</li>
+        <li >Tél Intermidiaire : {{ propriete.intermidiare.phonenumber }}</li>
+        {% endif %}
+        </ul>
+    </div>
+    {% endfor %}
+  </div>
+
+
+
+{% endblock content %}
+
+{% block script %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.carousel').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        dots: true,
+        arrows: true,
+        centerMode: true,      // Assure que les images ne sont pas décalées vers le centre
+        variableWidth: false,    // Empêche des largeurs irrégulières qui causent des décalages
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
+});
+
+
+
+</script>
+{% endblock script %}

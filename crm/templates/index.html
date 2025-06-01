@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+
+	<title>CRM LNA D'OR</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="{% static 'css/app.css' %}" rel="stylesheet">
+	
+	
+	
+	<style>
+        .img-div {
+    position: relative;
+    width: 46%;
+    float:left;
+    margin-right:5px;
+    margin-left:5px;
+    margin-bottom:10px;
+    margin-top:10px;
+}
+
+.image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    max-width: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.img-div:hover .image {
+    opacity: 0.3;
+}
+
+.img-div:hover .middle {
+    opacity: 1;
+}
+.carousel {
+    width: 100%;
+    margin: auto;
+}
+
+
+.description {
+    font-size: 12px;
+    color: #555;
+    margin-top: 2px;
+}
+.carousel, .carousel-item {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+    </style>
+
+    
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css" rel="stylesheet" />
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="#">
+          <span class="align-middle">CRM LNA D'OR</span>
+        </a>
+		
+				<ul class="sidebar-nav">
+				{% if request.user|has_perms:"settings" %}
+					<li class="sidebar-header">
+						Suivi & Rapports
+					</li>
+
+					<li class="sidebar-item active">
+						<a class="sidebar-link" href="index.html">
+              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Rapport 1</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-profile.html">
+              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Rapport 2</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-sign-in.html">
+              <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Suivi des Opérations</span>
+            </a>
+					</li>
+
+					
+					{% endif %}
+					
+
+					<li class="sidebar-header">
+						Gestion
+					</li>
+					{% if request.user|has_perms:"proprietaires" %}
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{% url 'list-proprietaires' %}">
+              <i class="align-middle" data-feather="square"></i> <span class="align-middle">Propriétaires</span>
+            </a>
+					</li>
+					{% endif %}
+					{% if request.user|has_perms:"clients" %}
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{% url 'list-clients' %}">
+              <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Clients</span>
+            </a>
+					</li>
+					{% endif %}
+
+					{% if request.user|has_perms:"proprietes" %}
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{% url 'list-proprietes' %}">
+              <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Biens</span>
+            </a>
+					</li>
+					{% endif %}
+
+					{% if request.user|has_perms:"operations" %}
+
+
+                    <li class="sidebar-item">
+						<a class="sidebar-link" href="{% url 'list-operations' %}">
+              <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Opérations</span>
+            </a>
+					</li>
+
+					{% endif %}
+
+					
+					{% if request.user|has_perms:"settings" %}
+					<li class="sidebar-header">
+						Configuration
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{% url 'list-settings' %}">
+              <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Données de Base</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{% url 'users-list' %}">
+              <i class="align-middle" data-feather="map"></i> <span class="align-middle">Utilisateurs</span>
+            </a>
+					</li>
+
+					{% endif %}
+				</ul>
+
+				
+			</div>
+		</nav>
+
+		<div class="main">
+			
+
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+          <i class="hamburger align-self-center"></i>
+        </a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+						
+						
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                <i class="align-middle" data-feather="settings"></i>
+              </a>
+
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                <img src="{% static 'assets/img/avatar.png' %}" class="avatar img-fluid rounded me-1" alt="" /> <span class="text-dark">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+              </a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" href="{% url 'profile_edit' %}"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="{% url 'logout' %}">Déconnexion</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					{% block content %}
+
+                    {% endblock content %}
+				</div>
+			</main>
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-start">
+							<p class="mb-0">
+								<a class="text-muted" href="#" target="_blank"><strong>CRM LNA D'OR</strong></a> 
+							</p>
+						</div>
+						
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="{% static 'js/app.js' %}"></script>
+	
+
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+	<script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+
+    {% block script %}
+
+    {% endblock script %}
+
+	
+	
+	
+	
+	
+
+</body>
+
+</html>

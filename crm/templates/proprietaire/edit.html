@@ -1,0 +1,119 @@
+{% extends 'index.html' %}
+{% block content %}
+<form class="mb-9" method="POST" action="">
+  {% csrf_token %}
+  <div class="row mt-5">
+    <div class="d-flex justify-content-between">
+        <h4>Propriétaire</h4>
+        
+    </div>
+  </div>
+
+  <div class="row g-5">
+
+
+
+
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-6">
+              <label for="type-contrat" class="mb-3"> Type Propriétaire</label>
+              {{proprietaire_form.type_proprietaire}}
+            </div>
+            <div class="col-6">
+              <label for="objet-ticket" class="mb-3"> Code Propriétaire </label>
+              {{proprietaire_form.reference}}
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-6">
+              <label for="type-contrat" class="mb-3"> Nom ou Raison Sociale</label>
+              {{proprietaire_form.nom_raison_sociale}}
+            </div>
+            <div class="col-6">
+              <label for="objet-ticket" class="mb-3"> N°Tel </label>
+              {{proprietaire_form.phonenumber}}
+            </div>
+        </div>
+        <div class="row mt-4" id="professionnel">
+          <div class="col-6">
+            <label for="type-contrat" class="mb-3"> Nom Propriétaire</label>
+            {{proprietaire_form.nom_proprietaire}}
+          </div>
+          <div class="col-6">
+            <label for="objet-ticket" class="mb-3"> N°Tel Propriétaire</label>
+            {{proprietaire_form.tel_proprietaire}}
+          </div>
+      </div>
+        <div class="row mt-4">
+          <div class="col-6">
+            <label for="type-contrat" class="mb-3"> Nom Responsable</label>
+            {{proprietaire_form.nom_responsable}}
+          </div>
+          <div class="col-6">
+            <label for="objet-ticket" class="mb-3"> N°Tel Responsable</label>
+            {{proprietaire_form.tel_responsable}}
+          </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-6">
+          <label for="type-contrat" class="mb-3"> Nom Gardien</label>
+          {{proprietaire_form.nom_gardien}}
+        </div>
+        <div class="col-6">
+          <label for="objet-ticket" class="mb-3"> N°Tel Gardien</label>
+          {{proprietaire_form.tel_gardien}}
+        </div>
+    </div>
+        <div class=" mt-3 d-flex justify-content-between">
+            <div class="col-9"></div>
+            <div class="">
+            <span><button  class="btn btn-sm btn-success" type="submit">Enregistrer</a></span>
+            </div>
+        </div>
+
+         
+
+
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+</form>
+
+{% endblock content %}
+
+
+{% block script %}
+
+<script>
+  div_professionnal = document.getElementById("professionnel");
+  type_proprietaire = document.getElementById("id_type_proprietaire");
+  nom_proprietaire = document.getElementById("id_nom_proprietaire");
+  tel_proprietaire = document.getElementById("id_tel_proprietaire");
+
+  div_professionnal.style.visibility='hidden';
+  if (type_proprietaire.value == "PROFESSIONNEL"){
+    div_professionnal.style.visibility='visible';
+  }
+
+  type_proprietaire.addEventListener("change", function() {
+    if (type_proprietaire.value == "PROFESSIONNEL"){
+      div_professionnal.style.visibility='visible';
+    }else{
+      div_professionnal.style.visibility='hidden';
+      nom_proprietaire.value = "";
+      tel_proprietaire.value = "";
+    }
+  });
+</script>
+
+{% endblock script %}

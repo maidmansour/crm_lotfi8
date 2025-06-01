@@ -1,0 +1,90 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="app-page-title">
+  <div class="page-title-wrapper">
+      <div class="page-title-heading">
+          <div class="page-title-icon">
+              <i class="pe-7s-car icon-gradient bg-mean-fruit">
+              </i>
+          </div>
+          <div>Mon Profil
+          </div>
+      </div> 
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-lg-12">
+
+
+    <div class="my-3 mx-auto">
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="form-row float-right mb-5">
+            <button class="mb-2 mr-2 btn btn-primary" type="submit">
+              Enregistrer
+            </button>
+            <button class="mb-2 mr-2 btn btn-light" type="reset">
+              Annuler
+            </button>
+          </div>
+          <br>
+          <hr>
+          <br>
+          <div class="form-row  d-flex justify-content-between">
+              <div class="col-md-6">
+                  <div class="position-relative form-group">
+                    <label for="Title" class="">Nom</label>
+                    {{ profile_form.last_name }}
+                  </div>
+              </div>
+              
+               
+             
+          </div>
+          <div class="form-row  d-flex justify-content-between">
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                  <label for="Title" class="">Prénom</label>
+                  {{ profile_form.first_name }}
+                </div>
+            </div>
+        </div>
+            
+          <div class="form-row">
+            <div class="col-md-6">
+                  <div class="position-relative form-group">
+                    <label for="Title" class="">N°Tel</label>
+                    {{ profile_form.phone_number }}
+                  </div>
+              </div>
+             
+          </div>
+          <div class="form-row">
+              <div class="col-md-6">
+                  <div class="position-relative form-group">
+                    <label for="exampleState" class="">Nouveau Mot de Passe</label>
+                    {{ profile_form.password }}
+                  </div>
+              </div>
+              
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                <label for="exampleState" class="">Re-taper Le Nouveau Mot de Passe</label>
+                {{ profile_form.password }}
+                </div>
+            </div>
+          </div>
+          
+          
+
+          
+        </form>
+      </div>
+
+  </div>
+</div>
+
+{% endblock content %}

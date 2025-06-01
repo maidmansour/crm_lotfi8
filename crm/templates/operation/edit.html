@@ -1,0 +1,81 @@
+{% extends 'index.html' %}
+{% block content %}
+<form class="mb-9" method="POST" action="">
+  {% csrf_token %}
+  <div class="row mt-5">
+    <div class="d-flex justify-content-between">
+        <h4>Opération</h4>
+        
+    </div>
+  </div>
+
+  <div class="row g-5">
+
+
+
+
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-6 col-xl-4">
+              <label for="type-contrat" class="mb-3"> Date Opération</label>
+              {{operation_form.date_operation}}
+            </div>
+            <div class="col-6 col-xl-4">
+              <label for="objet-ticket" class="mb-3"> Type Opération </label>
+              {{operation_form.type_operation}}
+            </div>
+          
+        </div>
+        <div class="row mt-4">
+            <div class="col-4 col-xl-4">
+              <label for="type-contrat" class="mb-3"> Propriété</label>
+              {{operation_form.propriete}}
+            </div>
+            <div class="col-4 col-xl-4">
+              <label for="objet-ticket" class="mb-3"> Client </label>
+              {{operation_form.client}}
+            </div>
+            <div class="col-4 col-xl-4">
+                <label for="objet-ticket" class="mb-3"> N°Contrat </label>
+                {{operation_form.numero_contrat}}
+              </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-4 col-xl-4">
+              <label for="type-contrat" class="mb-3"> Durée d'Opération</label>
+              {{operation_form.duree_operation}}
+            </div>
+            <div class="col-4 col-xl-4">
+              <label for="objet-ticket" class="mb-3"> Prix d'opération </label>
+              {{operation_form.prix_operation}}
+            </div>
+            <div class="col-4 col-xl-4">
+                <label for="objet-ticket" class="mb-3"> Montant de Commission Net </label>
+                {{operation_form.monant_commission}}
+              </div>
+        </div>
+        <div class=" mt-3 d-flex justify-content-between">
+            <div class="col-9"></div>
+            <div class="">
+            <span><button  class="btn btn-sm btn-success" type="submit">Enregistrer</a></span>
+            </div>
+        </div>
+
+         
+
+
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+</form>
+
+{% endblock content %}

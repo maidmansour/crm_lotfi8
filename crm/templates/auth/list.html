@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="row mt-5">
+    <div class="d-flex justify-content-between">
+        <h4>Liste des Utilisateurs</h4>
+        <span><a class="btn btn-sm btn-success" href="{% url 'account-edit' %}">Nouveau Utilisateur</a></span>
+    </div>
+</div>
+
+<div class="card-body mt-4">
+  <table id="list-clients" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Email</th>
+            <th>Permissions</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for user in list_users %}
+        
+        <tr>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{% for group in user.groups.all %} <li class='mr-2'>{{ group }}</li>{% endfor %}</td>
+            
+            <td>
+               <div class="d-flex justify-content-around">
+                    <span><a class="btn btn-sm btn-info" href="{% url 'account-edit' user.pk %}">Modifier</a></span>
+                    <span><a class="btn btn-sm btn-danger" href="">Supprimer</a></span>
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+       
+    
+    </tbody>
+    
+</table>
+  </div>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+  new DataTable('#list-clients');
+</script>
+{% endblock script %}

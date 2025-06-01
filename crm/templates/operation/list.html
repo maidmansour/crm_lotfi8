@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="row mt-5">
+    <div class="d-flex justify-content-between">
+        <h4>Liste des Operations</h4>
+        <span><a class="btn btn-sm btn-success" href="{% url 'operation-edit' %}">Nouvelle Opération</a></span>
+    </div>
+</div>
+
+<div class="card-body mt-4">
+  <table id="list-operations" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Titre Propriété</th>
+            <th>Nature Propriété</th>
+            <th>Location Propriété</th>
+            <th>CIN Client</th>
+            <th>Nom Client</th>
+            <th>Prénom Client</th>
+            <th>Durée</th>
+            <th>Prix</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for operation in list_operations %}
+        
+        <tr>
+            <td>{{ operation.date_operation }}</td>
+            <td>{{ operation.type_operation }}</td>
+            <td>{{ operation.propriete.title }}</td>
+            <td>{{ operation.propriete.nature }}</td>
+            <td>{{ operation.propriete.location }}</td>
+            <td>{{ operation.client.cinnumber }}</td>
+            <td>{{ operation.client.lastname }}</td>
+            <td>{{ operation.client.firstname }}</td>
+            <td>{{ operation.duree_operation }}</td>
+            <td>{{ operation.prix_operation }}</td>
+            <td>
+               <div class="d-flex justify-content-around">
+                    <span><a class="btn btn-sm btn-info" href="{% url 'operation-edit' operation.pk %}">Modifier</a></span>
+                    <span><a class="btn btn-sm btn-danger" href="">Supprimer</a></span>
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+       
+    
+    </tbody>
+    
+</table>
+  </div>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+  new DataTable('#list-operations');
+</script>
+{% endblock script %}

@@ -1,0 +1,392 @@
+{% extends 'index.html' %}
+{% block content %}
+
+
+
+<div class="d-flex flex-between-end flex-wrap">
+    <h3>Donnees de base</h3>
+    <ul class="nav nav-pills" id="myTab" role="tablist">
+      <li class="nav-item"><a class="nav-link active" id="secteur-tab" data-bs-toggle="tab"
+          href="#tab-secteur" role="tab" aria-controls="tab-secteur"
+          aria-selected="true">Secteurs</a></li>
+      <li class="nav-item"><a class="nav-link" id="quartier-tab" data-bs-toggle="tab" href="#tab-quartier"
+          role="tab" aria-controls="tab-quartier" aria-selected="false">Quartiers</a></li>
+      <li class="nav-item"><a class="nav-link" id="type-bien-tab" data-bs-toggle="tab"
+          href="#tab-type-bien" role="tab" aria-controls="tab-type-bien"
+          aria-selected="false">Types de Biens</a></li>
+      <li class="nav-item"><a class="nav-link" id="sous-type-bien-tab" data-bs-toggle="tab"
+          href="#tab-sous-type-bien" role="tab" aria-controls="tab-sous-type-bien"
+          aria-selected="false">Sous Type de Biens</a></li>
+      
+      <li class="nav-item"><a class="nav-link" id="residence-tab" data-bs-toggle="tab"
+          href="#tab-residence" role="tab" aria-controls="tab-residence" aria-selected="false">Residences</a></li>
+      
+      <li class="nav-item"><a class="nav-link" id="agent-tab" data-bs-toggle="tab"
+          href="#tab-agent" role="tab" aria-controls="tab-agent"
+          aria-selected="false">Agents</a></li>
+      <li class="nav-item"><a class="nav-link" id="intermidiaire-tab" data-bs-toggle="tab"
+            href="#tab-intermidiaire" role="tab" aria-controls="tab-intermidiaire"
+            aria-selected="false">Intermidiaires</a></li>
+      
+    </ul>
+  </div>
+ <div class="tab-content mt-3" id="myTabContent">
+    <div class="tab-pane fade show active" id="tab-secteur" role="tabpanel"
+      aria-labelledby="secteur-tab">
+
+<div class="card-body mt-4">
+    <div class="card-header d-flex justify-content-between">
+        <h6>Les Secteurs</h6>
+        <span class="mb-2"><a class="btn btn-sm btn-success" href="{% url 'secteur-edit' %}">Nouveau Secteur</a></span>
+    </div>
+  <table  class="table table-striped" style="width:100%" id="list-secteurs">
+    <thead>
+        <tr>
+            <th style="width:90%;">Secteur</th>
+            <th style="text-align:center;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for secteur in list_secteurs %}
+        
+        <tr>
+            <td style="width:70%">{{ secteur.title }}</td>
+            <td>
+                
+               <div class="d-flex justify-content-around">
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href="{% url 'secteur-edit' secteur.pk %}"><i class="align-middle me-2" data-feather="edit"></i> </a></span>
+                </div>
+                    
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href=""><i class="align-middle me-2" data-feather="trash-2"></i> </a></span>
+                </div>
+
+                    
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+    
+    </tbody>
+    
+</table>
+  </div>
+</div>
+
+<div class="tab-pane fade" id="tab-quartier" role="tabpanel"
+      aria-labelledby="quartier-tab">
+<div class="card-body mt-4">
+    <div class="card-header d-flex justify-content-between">
+        <h6>Les Quartiers</h6>
+        <span class="mb-2"><a class="btn btn-sm btn-success" href="{% url 'quartier-edit' %}">Nouveau Quartier</a></span>
+    </div>
+  <table  class="table table-striped" style="width:100%" id="list-quartiers">
+    <thead>
+        <tr>
+            <th style="width:40%;">Quartier</th>
+            <th style="width:50%;">Secteur</th>
+            <th style="text-align:center;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for quartier in list_quartiers %}
+        
+        <tr>
+            <td style="width:70%">{{ quartier.title }}</td>
+            <td style="width:70%">{{ quartier.secteur }}</td>
+            <td>
+                
+               <div class="d-flex justify-content-around">
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href="{% url 'quartier-edit' quartier.pk %}"><i class="align-middle me-2" data-feather="edit"></i> </a></span>
+                </div>
+                    
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href=""><i class="align-middle me-2" data-feather="trash-2"></i> </a></span>
+                </div>
+
+                    
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+    
+    </tbody>
+    
+</table>
+  </div>
+</div>
+
+<div class="tab-pane fade" id="tab-type-bien" role="tabpanel"
+      aria-labelledby="type-bien-tab">
+  <div class="card-body mt-5">
+    <div class="card-header d-flex justify-content-between">
+        <h6>Les Types de Bien</h6>
+        <span class="mb-2"><a class="btn btn-sm btn-success" href="{% url 'type_bien-edit' %}">Nouveau Type de Bien</a></span>
+    </div>
+  <table  class="table table-striped" style="width:100%" id="list-types">
+    <thead>
+        <tr>
+            <th style="width:90%;">Type de Bien</th>
+            <th style="text-align:center;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for type_bien in list_type_biens %}
+        
+        <tr>
+            <td style="width:70%;">{{ type_bien.title }}</td>
+            <td>
+               <div class="d-flex justify-content-around">
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href="{% url 'type_bien-edit' type_bien.pk %}"><i class="align-middle me-2" data-feather="edit"></i> </a></span>
+                </div>
+                    
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href=""><i class="align-middle me-2" data-feather="trash-2"></i> </a></span>
+                </div>
+
+                    
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+    
+    </tbody>
+    
+</table>
+  </div>
+  </div>
+  <div class="tab-pane fade" id="tab-sous-type-bien" role="tabpanel"
+  aria-labelledby="sous-type-bien-tab">
+  <div class="card-body mt-5">
+    <div class="card-header d-flex justify-content-between">
+        <h6>Les Sous Types de Bien</h6>
+        <span class="mb-2"><a class="btn btn-sm btn-success" href="{% url 'sous_type_bien-edit' %}">Nouveau Sous Type de Bien</a></span>
+    </div>
+  <table  class="table table-striped" style="width:100%" id="list-sous-types">
+    <thead>
+        <tr>
+            <th style="width:50%;">Sous Type de Bien</th>
+            <th style="width:40%;">Type de Bien</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for sous_type_bien in list_sous_type_biens %}
+        
+        <tr>
+            <td>{{ sous_type_bien.title }}</td>
+            <td>{{ sous_type_bien.type_bien }}</td>
+            <td>
+               <div class="d-flex justify-content-around">
+
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href="{% url 'sous_type_bien-edit' sous_type_bien.pk  %}"><i class="align-middle me-2" data-feather="edit"></i> </a></span>
+                </div>
+                    
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href=""><i class="align-middle me-2" data-feather="trash-2"></i> </a></span>
+                </div>
+                    
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+    
+    </tbody>
+    
+</table>
+  </div>
+</div>
+<div class="tab-pane fade" id="tab-residence" role="tabpanel"
+      aria-labelledby="residence-tab">
+  <div class="card-body mt-4">
+    <div class="card-header d-flex justify-content-between">
+        <h6>Les Résidences</h6>
+        <span class="mb-2"><a class="btn btn-sm btn-success" href="{% url 'residence-edit' %}">Nouvelle Résidence</a></span>
+    </div>
+  <table  class="table table-striped" style="width:100%" id="list-residences">
+    <thead>
+        <tr>
+            <th style="width:30%;;">Residence</th>
+            <th style="width:60%;;">Adresse</th>
+            <th style="text-align: center;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for residence in list_residences %}
+        
+        <tr>
+            <td>{{ residence.title }}</td>
+            <td>{{ residence.address }}</td>
+            <td>
+               <div class="d-flex justify-content-around">
+
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href="{% url 'residence-edit' residence.pk  %}"><i class="align-middle me-2" data-feather="edit"></i> </a></span>
+                </div>
+                    
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href=""><i class="align-middle me-2" data-feather="trash-2"></i> </a></span>
+                </div>
+                   
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+    
+    </tbody>
+    
+</table>
+  </div>
+</div>
+<div class="tab-pane fade" id="tab-agent" role="tabpanel"
+      aria-labelledby="agent-tab">
+  <div class="card-body mt-4">
+    <div class="card-header d-flex justify-content-between">
+        <h6>Les Agents</h6>
+        <span class="mb-2"><a class="btn btn-sm btn-success" href="{% url 'agent-edit' %}">Nouveau Agent</a></span>
+    </div>
+  <table  class="table table-striped" style="width:100%" id="list-agents">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>N°Tél</th>
+            <th>Photo</th>
+            <th style="text-align: center;width: 10%;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for agent in list_agents %}
+        
+        <tr>
+            <td>{{ agent.lastname }}</td>
+            <td>{{ agent.firstname }}</td>
+            <td>{{ agent.phonenumber }}</td>
+            <td>{% if agent.photo %}<img src="{{ agent.photo.url }}" alt="Photo de {{ agent.firstname }}" width="100" height="100">{% endif %}</td>
+            <td>
+               <div class="d-flex justify-content-around">
+
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href="{% url 'agent-edit' agent.pk   %}"><i class="align-middle me-2" data-feather="edit"></i> </a></span>
+                </div>
+                    
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href=""><i class="align-middle me-2" data-feather="trash-2"></i> </a></span>
+                </div>
+                   
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+    
+    </tbody>
+    
+</table>
+  </div>
+</div>
+<div class="tab-pane fade" id="tab-intermidiaire" role="tabpanel"
+      aria-labelledby="intermidiaire-tab">
+  <div class="card-body mt-4">
+    <div class="card-header d-flex justify-content-between">
+        <h6>Les Intérmidiaires</h6>
+        <span class="mb-2"><a class="btn btn-sm btn-success" href="{% url 'intermidiaire-edit' %}">Nouveau Intérmidiaire</a></span>
+    </div>
+  <table  class="table table-striped" style="width:100%" id="list-intermidiaires">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>N°Tél</th>
+            <th>Photo</th>
+            <th style="text-align: center;width: 10%;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for intermidiaire in list_intermidiaires %}
+        
+        <tr>
+            <td>{{ intermidiaire.lastname }}</td>
+            <td>{{ intermidiaire.firstname }}</td>
+            <td>{{ intermidiaire.phonenumber }}</td>
+            <td>{% if intermidiaire.photo %}<img src="{{ intermidiaire.photo.url }}" alt="Photo de {{ intermidiaire.firstname }}" width="100" height="100">{% endif %}</td>
+            <td>
+               <div class="d-flex justify-content-around">
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href="{% url 'intermidiaire-edit' intermidiaire.pk  %}"><i class="align-middle me-2" data-feather="edit"></i> </a></span>
+                </div>
+                    
+                <div class="mb-2">
+                    
+                    <span class="align-middle"><a href=""><i class="align-middle me-2" data-feather="trash-2"></i> </a></span>
+                </div>
+                    
+               </div>
+            </td>
+        </tr>
+       
+        {% endfor %}
+    
+    </tbody>
+    
+</table>
+  </div>
+  </div>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script>
+  new DataTable('#list-secteurs');
+  new DataTable('#list-quartiers');
+  new DataTable('#list-types');
+  new DataTable('#list-sous-types');
+  
+  new DataTable('#list-agents');
+  new DataTable('#list-intermidiaires');
+
+  $(document).ready(function () {
+     var table = $('#list-residences').DataTable();
+     
+     table.on('draw', function () {
+         feather.replace();
+     });
+
+    feather.replace();
+
+  });
+
+
+</script>
+
+{% endblock script %}
