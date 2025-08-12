@@ -25,7 +25,7 @@ DEBUG = config('DEBUG')
 FEATURES_DEBUG = True
 ACCOUNT_ACTIVATION_DAYS = 2
 
-ALLOWED_HOSTS = ['127.0.0.1', '35.181.86.138']
+ALLOWED_HOSTS = ['127.0.0.1', '35.181.86.138', '.onrender.com']
 
 # CSRF_COOKIE_SECURE = True
 # SECURE_SSL_REDIRECT = True
@@ -98,8 +98,8 @@ AUTH_PASSWORD_VALIDATORS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/ubuntu/crm/db.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'NAME': '/home/ubuntu/crm/db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
@@ -112,7 +112,7 @@ DISABLE_COLLECTSTATIC = 1
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Additional locations of static files
