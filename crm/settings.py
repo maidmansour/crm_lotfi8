@@ -98,8 +98,8 @@ AUTH_PASSWORD_VALIDATORS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': '/home/ubuntu/crm/db.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': '/var/data/db.sqlite3',  # Stockage dans le volume persistant
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
